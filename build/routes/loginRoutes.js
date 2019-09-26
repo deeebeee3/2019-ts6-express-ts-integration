@@ -1,6 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
+//creating a middleware - not supposed to return anything from a middleware
+function requireAuth(req, res, next) {
+    // typeguard
+    if (req.session && req.session.loggedIn) {
+        //if user is logged in then allow to continue
+        next();
+        return;
+    }
+    res.status(403);
+    res.send('Not permitted');
+}
 var router = express_1.Router();
 exports.router = router;
 router.get('/login', function (req, res) {
@@ -30,4 +41,7 @@ router.get('/', function (req, res) {
 router.get('/logout', function (req, res) {
     req.session = undefined;
     res.redirect('/');
+});
+router.get('/protected', requireAuth, function (req, res) {
+    res.send('Welcome to protected route, logged in user');
 });
