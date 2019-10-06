@@ -13,11 +13,26 @@ export function controller(routePrefix: string) {
       const routeHandler = target.prototype[key];
 
       /* path and method metadata was added with the get decorator */
-      const path = Reflect.getMetadata(MetadataKeys.PATH, target.prototype, key);
-      const method: Methods = Reflect.getMetadata(MetadataKeys.METHOD, target.prototype, key);
+      const path = Reflect.getMetadata(
+        MetadataKeys.PATH,
+        target.prototype,
+        key
+      );
+
+      const method: Methods = Reflect.getMetadata(
+        MetadataKeys.METHOD,
+        target.prototype,
+        key
+      );
+
+      const middlewares = Reflect.getMetadata(
+        MetadataKeys.MIDDLEWARE,
+        target.prototype,
+        key
+      ) || [];
 
       if (path) {
-        router[method](`${routePrefix}${path}`, routeHandler);
+        router[method](`${routePrefix}${path}`, ...middlewares, routeHandler);
       }
     }
   }
