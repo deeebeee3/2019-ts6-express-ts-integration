@@ -21,22 +21,7 @@ const router = Router();
 
 
 
-router.post('/login', (req: RequestWithBody, res: Response) => {
-  const { email, password } = req.body;
 
-  //type guard
-  if (email && password && email === 'hi@there.com' && password === 'password') {
-
-    //mark this person as logged in
-    req.session = { loggedIn: true };
-
-    //redirect them to the root
-    res.redirect('/');
-
-  } else {
-    res.send('Invalid email or password');
-  }
-});
 
 router.get('/', (req: Request, res: Response) => {
   if (/* type guard */ req.session && req.session.loggedIn) {
