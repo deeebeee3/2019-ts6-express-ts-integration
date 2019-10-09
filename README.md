@@ -10,3 +10,9 @@ Express and Typescript integration
 4) Command click express in index.ts to see type definitions - at bottom of file can see interfaces Request and Response, which we use for type annotations.
 
 5) https://www.typescriptlang.org   :)
+
+
+http://localhost:3000/
+http://localhost:3000/auth/login
+http://localhost:3000/protected
+http://localhost:3000/auth/logout
